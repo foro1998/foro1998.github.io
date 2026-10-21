@@ -3,21 +3,445 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tapvolution - by Foro</title>
+  <title>Foro - Mobile games for Android</title>
+  <meta name="description" content="Foro makes colourful free mobile games for Android: Tapvolution (idle evolution clicker), Bugvalanche (tower defense) and Tiltstone (tilt-to-roll arcade). Ads are always optional.">
+  <link rel="canonical" href="https://foro1998.github.io/">
+  <meta name="theme-color" content="#120a26">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Foro">
+  <meta property="og:title" content="Foro - Mobile games for Android">
+  <meta property="og:description" content="Tapvolution, Bugvalanche and Tiltstone: colourful free Android games. Ads are always optional.">
+  <meta property="og:url" content="https://foro1998.github.io/">
+  <meta property="og:image" content="https://foro1998.github.io/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="/assets/fonts/Fredoka.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #2a0f3a; color: #f4ecff; font-family: system-ui, sans-serif; }
-    main { max-width: 32rem; padding: 2rem 1.25rem; text-align: center; }
-    h1 { margin: 0 0 .5rem; font-size: 2.2rem; }
-    p { line-height: 1.5; color: #d9c8ee; }
-    a { color: #9ff5c8; }
+    @font-face { font-family: "Fredoka"; src: url("/assets/fonts/Fredoka.woff2") format("woff2"); font-weight: 300 700; font-display: swap; }
+
+    :root {
+      --text: #f4efff;
+      --muted: #bdb3d6;
+      --gold: #ffcf5a;
+      --gold-dark: #e0a52f;
+      --mint: #7ee8a8;
+      --card: rgba(30, 20, 56, 0.72);
+      --stroke: rgba(255, 255, 255, 0.11);
+      --radius: 26px;
+      --font-display: "Fredoka", "Baloo 2", "Segoe UI Rounded", system-ui, sans-serif;
+      --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.55;
+      background: #0e0a1e;
+      min-height: 100vh;
+    }
+    /* soft night-sky backdrop, fixed so it doesn't scroll with the cards */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(900px 620px at 12% -8%, rgba(160, 100, 255, 0.34), transparent 62%),
+        radial-gradient(820px 600px at 100% 8%, rgba(126, 232, 168, 0.20), transparent 58%),
+        radial-gradient(700px 500px at 50% 105%, rgba(255, 140, 90, 0.14), transparent 60%),
+        linear-gradient(180deg, #140b2a 0%, #0c1b25 100%);
+    }
+    a { color: var(--mint); }
+    a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 10px; }
+    img { max-width: 100%; display: block; }
+    .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
+
+    /* ---------- header ---------- */
+    header.site {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(14, 10, 30, 0.62);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; }
+    .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); }
+    .brand__mark {
+      width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg, #7a3fe0, #1fa97a);
+      font: 700 1.55rem/1 var(--font-display); color: #fff; padding-bottom: 2px;
+      box-shadow: 0 6px 18px rgba(122, 63, 224, 0.45);
+    }
+    .brand__name { font: 700 1.5rem/1 var(--font-display); letter-spacing: 0.01em; }
+    nav { display: flex; align-items: center; gap: 6px; }
+    nav a.link { color: var(--text); text-decoration: none; padding: 8px 14px; border-radius: 999px; font-weight: 600; font-size: 0.95rem; }
+    nav a.link:hover { background: rgba(255, 255, 255, 0.08); }
+    .lang { display: inline-flex; border: 1px solid var(--stroke); border-radius: 999px; padding: 3px; margin-left: 8px; background: rgba(255, 255, 255, 0.04); }
+    .lang button {
+      border: 0; background: transparent; color: var(--muted); font: 700 0.8rem var(--font-body);
+      padding: 6px 11px; border-radius: 999px; cursor: pointer; letter-spacing: 0.04em;
+    }
+    .lang button[aria-pressed="true"] { background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: #3a2204; }
+
+    /* ---------- hero ---------- */
+    .hero { padding: clamp(48px, 9vw, 104px) 0 clamp(28px, 5vw, 56px); text-align: center; }
+    .hero h1 {
+      margin: 0 auto 14px;
+      max-width: 15ch;
+      font: 700 clamp(2.5rem, 7.2vw, 4.9rem)/1.04 var(--font-display);
+      letter-spacing: -0.01em;
+      background: linear-gradient(95deg, #fff 0%, var(--gold) 45%, var(--mint) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.35));
+    }
+    .hero p { margin: 0 auto; max-width: 40rem; color: var(--muted); font-size: clamp(1.02rem, 2.2vw, 1.22rem); }
+    .hero__icons { display: flex; justify-content: center; gap: 16px; margin-top: 34px; }
+    .hero__icons img {
+      width: clamp(64px, 12vw, 92px); height: auto; aspect-ratio: 1; border-radius: 24%;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.12);
+      transition: transform 0.25s ease;
+    }
+    .hero__icons a:nth-child(1) img { transform: rotate(-6deg); }
+    .hero__icons a:nth-child(2) img { transform: translateY(-8px); }
+    .hero__icons a:nth-child(3) img { transform: rotate(6deg); }
+    .hero__icons a:hover img { transform: translateY(-8px) scale(1.06); }
+    .cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+
+    /* ---------- buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      padding: 13px 22px; border-radius: 999px; font: 700 1rem var(--font-body); text-decoration: none;
+      border: 2px solid transparent; transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      cursor: pointer;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--gold { background: linear-gradient(180deg, #ffe08a, var(--gold-dark)); color: #3a2204; box-shadow: 0 10px 26px rgba(224, 165, 47, 0.38); }
+    .btn--gold:hover { box-shadow: 0 14px 32px rgba(224, 165, 47, 0.5); }
+    .btn--ghost { border-color: var(--stroke); color: var(--text); background: rgba(255, 255, 255, 0.05); }
+    .btn--ghost:hover { background: rgba(255, 255, 255, 0.11); }
+    .btn--soon { border-color: rgba(255, 207, 90, 0.45); color: var(--gold); background: rgba(255, 207, 90, 0.08); cursor: default; }
+    .btn--soon:hover { transform: none; }
+    .btn svg { width: 1.05em; height: 1.05em; flex: none; }
+
+    /* ---------- games ---------- */
+    section { padding: clamp(30px, 6vw, 64px) 0; }
+    h2.section {
+      margin: 0 0 8px; text-align: center; font: 700 clamp(1.8rem, 4.4vw, 2.6rem)/1.15 var(--font-display);
+    }
+    .section-sub { text-align: center; color: var(--muted); margin: 0 auto 36px; max-width: 36rem; }
+    .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 26px; align-items: stretch; }
+    .game {
+      position: relative; display: flex; flex-direction: column; overflow: hidden;
+      background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .game:hover { transform: translateY(-6px); box-shadow: 0 30px 64px rgba(0, 0, 0, 0.45); border-color: rgba(255, 255, 255, 0.22); }
+    .game__art { position: relative; aspect-ratio: 1024 / 500; background: #1b1030; }
+    .game__art .game__img { width: 100%; height: 100%; object-fit: cover; }
+    .game__art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(18, 10, 38, 0.8)); }
+    .game__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .badge {
+      padding: 4px 11px; border-radius: 999px; white-space: nowrap;
+      font: 700 0.72rem var(--font-body); letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge--live { background: rgba(31, 169, 122, 0.9); color: #fff; }
+    .badge--soon { background: rgba(255, 207, 90, 0.95); color: #3a2204; }
+    .game[data-status="live"] .badge--soon, .game[data-status="live"] .btn--soon { display: none; }
+    .game[data-status="soon"] .badge--live, .game[data-status="soon"] .btn--play { display: none; }
+    .game__art img.game__icon {
+      position: absolute; left: 20px; bottom: -34px; z-index: 3; width: 78px; height: 78px; border-radius: 22px;
+      border: 3px solid #1b1030; box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5); object-fit: cover; background: #1b1030;
+    }
+    .game__body { padding: 46px 22px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+    .game h3 { margin: 0; font: 700 1.7rem/1.1 var(--font-display); }
+    .tags { display: flex; flex-wrap: wrap; gap: 7px; margin: 0; padding: 0; list-style: none; }
+    .tags li { font: 600 0.76rem var(--font-body); color: var(--mint); border: 1px solid rgba(126, 232, 168, 0.35); background: rgba(126, 232, 168, 0.08); border-radius: 999px; padding: 3px 10px; }
+    .game p.desc { margin: 0; color: #e6defa; }
+    .facts { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; color: var(--muted); font-size: 0.93rem; }
+    .facts li { display: flex; gap: 9px; align-items: baseline; }
+    .facts li::before { content: "\2726"; color: var(--gold); font-size: 0.8em; }
+    .game__actions { margin-top: auto; padding-top: 10px; display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+    .game__actions .btn--gold, .game__actions .btn--soon { width: 100%; }
+    .game__actions .btn--ghost {
+      align-self: center; padding: 6px 12px; border: 0; background: transparent; color: var(--muted);
+      font-weight: 600; font-size: 0.9rem; text-decoration: underline; text-underline-offset: 3px;
+    }
+    .game__actions .btn--ghost:hover { color: var(--text); background: transparent; transform: none; }
+
+    /* ---------- values ---------- */
+    .values { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .value { padding: 22px; border-radius: 22px; border: 1px solid var(--stroke); background: rgba(255, 255, 255, 0.04); }
+    .value__icon { font-size: 1.9rem; line-height: 1; margin-bottom: 8px; }
+    .value h3 { margin: 0 0 4px; font: 700 1.2rem var(--font-display); }
+    .value p { margin: 0; color: var(--muted); font-size: 0.97rem; }
+
+    /* ---------- about / contact ---------- */
+    .about { text-align: center; max-width: 42rem; margin-inline: auto; }
+    .about p { color: var(--muted); font-size: 1.06rem; margin: 0 0 22px; }
+    .privacy-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 22px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 0.95rem; }
+
+    footer.site { border-top: 1px solid var(--stroke); padding: 28px 0 40px; color: var(--muted); font-size: 0.88rem; text-align: center; }
+    footer.site p { margin: 4px 0; }
+
+    @media (max-width: 640px) {
+      nav a.link { display: none; }
+      .wrap { width: calc(100% - 32px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
   </style>
 </head>
 <body>
+  <header class="site">
+    <div class="wrap bar">
+      <a class="brand" href="/" aria-label="Foro">
+        <span class="brand__mark" aria-hidden="true">F</span>
+        <span class="brand__name">Foro</span>
+      </a>
+      <nav aria-label="Main">
+        <a class="link" href="#games" data-i18n="navGames">Games</a>
+        <a class="link" href="#about" data-i18n="navAbout">About</a>
+        <a class="link" href="#contact" data-i18n="navContact">Contact</a>
+        <div class="lang" role="group" aria-label="Language">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="cs" aria-pressed="false">CS</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
   <main>
-    <h1>Tapvolution</h1>
-    <p>Tap a tiny cell and evolve it through 86 stages, all the way to a god. An idle evolution clicker for Android by Foro.</p>
-    <p><a href="https://play.google.com/store/apps/details?id=com.tapvolution.game">Get it on Google Play</a></p>
-    <p><a href="https://foro1998.github.io/tapvolution-privacy/">Privacy policy</a> &middot; <a href="mailto:tapvolution.game@gmail.com">Contact</a></p>
+    <section class="hero">
+      <div class="wrap">
+        <h1 data-i18n="heroTitle">Colourful games for your phone</h1>
+        <p data-i18n="heroText">I'm Foro. I make free Android games: idle clicking, tower defense and tilt-to-roll arcade. Ads are always optional, only when you choose to watch one for a reward.</p>
+        <div class="hero__icons" aria-hidden="true">
+          <a tabindex="-1" href="#tapvolution"><img src="/assets/img/tapvolution-icon.webp" alt="" width="92" height="92"></a>
+          <a tabindex="-1" href="#bugvalanche"><img src="/assets/img/bugvalanche-icon.webp" alt="" width="92" height="92"></a>
+          <a tabindex="-1" href="#tiltstone"><img src="/assets/img/tiltstone-icon.webp" alt="" width="92" height="92"></a>
+        </div>
+        <div class="cta">
+          <a class="btn btn--gold" href="#games" data-i18n="ctaGames">See the games</a>
+          <a class="btn btn--ghost" href="https://play.google.com/store/apps/details?id=com.tapvolution.game" data-i18n="ctaLatest">Play Tapvolution now</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="wrap">
+        <h2 class="section" data-i18n="gamesTitle">My games</h2>
+        <p class="section-sub" data-i18n="gamesSub">Three games, three very different ways to play.</p>
+
+        <div class="games">
+          <!--
+            To publish a game on this page, change data-status="soon" to data-status="live" on its card.
+            That swaps the "Coming soon" badge/button for "Get it on Google Play" (the Play links are already filled in).
+          -->
+
+          <!-- Tapvolution -->
+          <article class="game" id="tapvolution" data-status="live">
+            <div class="game__art">
+              <img class="game__img" src="/assets/img/tapvolution-card.webp" alt="Tapvolution: a worm, a frog, a wolf, a caveman, a cyborg and a god" width="1024" height="500" loading="lazy">
+              <img class="game__icon" src="/assets/img/tapvolution-icon.webp" alt="Tapvolution icon" width="78" height="78">
+            </div>
+            <div class="game__body">
+              <div class="game__head">
+                <h3>Tapvolution</h3>
+                <span class="badge badge--live" data-i18n="badgeLive">Out now</span>
+                <span class="badge badge--soon" data-i18n="badgeSoon">Coming soon</span>
+              </div>
+              <ul class="tags"><li data-i18n="tagIdle">Idle clicker</li><li data-i18n="tagOffline">Plays offline</li><li data-i18n="tagTap">Evolution</li></ul>
+              <p class="desc" data-i18n="tapDesc">Tap a tiny cell and evolve it through 86 stages, all the way to a god. Buy generators that earn while you're away, then reset and grow stronger.</p>
+              <ul class="facts">
+                <li data-i18n="tapF1">86 evolution stages, each with its own creature</li>
+                <li data-i18n="tapF2">110 achievements and a branching prestige tree</li>
+                <li data-i18n="tapF3">Available in 5 languages</li>
+              </ul>
+              <div class="game__actions">
+                <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.tapvolution.game">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
+                  <span data-i18n="btnPlay">Get it on Google Play</span>
+                </a>
+                <span class="btn btn--soon" aria-disabled="true" data-i18n="btnSoon">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/tapvolution-privacy/" data-i18n="btnPrivacy">Privacy policy</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Bugvalanche -->
+          <article class="game" id="bugvalanche" data-status="soon">
+            <div class="game__art">
+              <img class="game__img" src="/assets/img/bugvalanche-card.webp" alt="Bugvalanche: swarms of cartoon bugs marching on a colony wall" width="1024" height="500" loading="lazy">
+              <img class="game__icon" src="/assets/img/bugvalanche-icon.webp" alt="Bugvalanche icon" width="78" height="78">
+            </div>
+            <div class="game__body">
+              <div class="game__head">
+                <h3>Bugvalanche</h3>
+                <span class="badge badge--live" data-i18n="badgeLive">Out now</span>
+                <span class="badge badge--soon" data-i18n="badgeSoon">Coming soon</span>
+              </div>
+              <ul class="tags"><li data-i18n="tagTd">Tower defense</li><li data-i18n="tagStrategy">Strategy</li><li data-i18n="tagOffline">Plays offline</li></ul>
+              <p class="desc" data-i18n="bugDesc">Hold the wall against an avalanche of thousands of bugs. Place your weapons anywhere, aim them yourself, call in the mothership and upgrade after every fight.</p>
+              <ul class="facts">
+                <li data-i18n="bugF1">50 levels across 9 regions</li>
+                <li data-i18n="bugF2">8 weapons and 120+ upgrades</li>
+                <li data-i18n="bugF3">Endless Swarm, daily challenge, bosses</li>
+              </ul>
+              <div class="game__actions">
+                <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.bugvalanche.game">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
+                  <span data-i18n="btnPlay">Get it on Google Play</span>
+                </a>
+                <span class="btn btn--soon" aria-disabled="true" data-i18n="btnSoon">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/bugvalanche-privacy/" data-i18n="btnPrivacy">Privacy policy</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Tiltstone -->
+          <article class="game" id="tiltstone" data-status="soon">
+            <div class="game__art">
+              <img class="game__img" src="/assets/img/tiltstone-card.webp" alt="Tiltstone: a low-poly boulder glowing in front of bright rays" width="1024" height="500" loading="lazy">
+              <img class="game__icon" src="/assets/img/tiltstone-icon.webp" alt="Tiltstone icon" width="78" height="78">
+            </div>
+            <div class="game__body">
+              <div class="game__head">
+                <h3>Tiltstone</h3>
+                <span class="badge badge--live" data-i18n="badgeLive">Out now</span>
+                <span class="badge badge--soon" data-i18n="badgeSoon">Coming soon</span>
+              </div>
+              <ul class="tags"><li data-i18n="tagArcade">Arcade</li><li data-i18n="tagTilt">Tilt controls</li><li data-i18n="tagOffline">Plays offline</li></ul>
+              <p class="desc" data-i18n="tiltDesc">Tilt your phone and roll a boulder along narrow paths high above the clouds. One careless move and you're falling.</p>
+              <ul class="facts">
+                <li data-i18n="tiltF1">60 levels in 12 worlds</li>
+                <li data-i18n="tiltF2">Endless path and a new daily path</li>
+                <li data-i18n="tiltF3">14 stones to collect, each rolls a little differently</li>
+              </ul>
+              <div class="game__actions">
+                <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.tiltstone.game">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
+                  <span data-i18n="btnPlay">Get it on Google Play</span>
+                </a>
+                <span class="btn btn--soon" aria-disabled="true" data-i18n="btnSoon">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/tiltstone-privacy/" data-i18n="btnPrivacy">Privacy policy</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="why">
+      <div class="wrap">
+        <h2 class="section" data-i18n="whyTitle">How I make games</h2>
+        <p class="section-sub" data-i18n="whySub">The same promises in every game.</p>
+        <div class="values">
+          <div class="value"><div class="value__icon" aria-hidden="true">🆓</div><h3 data-i18n="v1t">Free to play</h3><p data-i18n="v1p">Download and play. No purchases, no energy timers.</p></div>
+          <div class="value"><div class="value__icon" aria-hidden="true">🎬</div><h3 data-i18n="v2t">Ads only if you choose</h3><p data-i18n="v2p">The only ads are optional reward videos. Nothing pops up on its own.</p></div>
+          <div class="value"><div class="value__icon" aria-hidden="true">📴</div><h3 data-i18n="v3t">Plays offline</h3><p data-i18n="v3p">No account and no connection needed to play.</p></div>
+          <div class="value"><div class="value__icon" aria-hidden="true">🔒</div><h3 data-i18n="v4t">Your data stays yours</h3><p data-i18n="v4p">Progress is saved on your device. Every game has a plain-language privacy policy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="wrap about">
+        <h2 class="section" data-i18n="aboutTitle">About</h2>
+        <p data-i18n="aboutText">I'm Foro, an independent game developer. I like games that are easy to start, pretty to look at and hard to put down. Bug reports, ideas and kind words are always welcome.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap about">
+        <h2 class="section" data-i18n="contactTitle">Contact</h2>
+        <p data-i18n="contactText">Questions, bugs or just saying hi? Write to me:</p>
+        <a class="btn btn--gold" href="mailto:tapvolution.game@gmail.com">tapvolution.game@gmail.com</a>
+        <ul class="privacy-list" aria-label="Privacy policies">
+          <li><a href="https://foro1998.github.io/tapvolution-privacy/"><span data-i18n="privFor">Privacy policy:</span> Tapvolution</a></li>
+          <li><a href="https://foro1998.github.io/bugvalanche-privacy/"><span data-i18n="privFor">Privacy policy:</span> Bugvalanche</a></li>
+          <li><a href="https://foro1998.github.io/tiltstone-privacy/"><span data-i18n="privFor">Privacy policy:</span> Tiltstone</a></li>
+        </ul>
+      </div>
+    </section>
   </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <p>&copy; 2026 Foro</p>
+      <p data-i18n="trademark">Google Play is a trademark of Google LLC.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var STR = {
+        cs: {
+          navGames: "Hry", navAbout: "O mně", navContact: "Kontakt",
+          heroTitle: "Barevné hry do telefonu",
+          heroText: "Jsem Foro a dělám zdarma hry pro Android: idle klikání, tower defense a arkádu ovládanou náklonem telefonu. Reklamy jsou vždy dobrovolné, jen když se sám rozhodneš podívat na jednu za odměnu.",
+          ctaGames: "Zobrazit hry", ctaLatest: "Zahrát si Tapvolution",
+          gamesTitle: "Moje hry", gamesSub: "Tři hry, tři úplně jiné způsoby hraní.",
+          badgeLive: "Už venku", badgeSoon: "Brzy",
+          tagIdle: "Idle klikačka", tagOffline: "Hraje se offline", tagTap: "Evoluce", tagTd: "Tower defense", tagStrategy: "Strategie", tagArcade: "Arkáda", tagTilt: "Ovládání náklonem",
+          tapDesc: "Klikej na malou buňku a vyvíjej ji přes 86 fází až v boha. Kupuj generátory, které vydělávají, i když nehraješ, a pak začni znovu silnější.",
+          tapF1: "86 evolučních fází, každá s vlastním tvorem", tapF2: "110 úspěchů a větvený prestižní strom", tapF3: "K dispozici v 5 jazycích",
+          bugDesc: "Udrž hradbu proti lavině tisíců brouků. Zbraně stavíš kamkoli, míříš je sám, přivoláš mateřskou loď a po každém boji vylepšuješ.",
+          bugF1: "50 levelů v 9 oblastech", bugF2: "8 zbraní a víc než 120 vylepšení", bugF3: "Nekonečný roj, denní výzva, bossové",
+          tiltDesc: "Nakláněj telefon a kutálej balvan po úzkých stezkách vysoko nad mraky. Jeden neopatrný pohyb a padáš.",
+          tiltF1: "60 levelů ve 12 světech", tiltF2: "Nekonečná stezka a každý den nová denní stezka", tiltF3: "14 kamenů ke sbírání, každý jede trochu jinak",
+          btnPlay: "Stáhnout na Google Play", btnSoon: "Brzy na Google Play", btnPrivacy: "Zásady ochrany soukromí",
+          whyTitle: "Jak hry dělám", whySub: "Stejné sliby v každé hře.",
+          v1t: "Zdarma", v1p: "Stáhni a hraj. Žádné nákupy ani energetické časovače.",
+          v2t: "Reklamy jen když chceš", v2p: "Jediné reklamy jsou dobrovolná videa za odměnu. Nic samo nevyskakuje.",
+          v3t: "Hraje se offline", v3p: "K hraní nepotřebuješ účet ani připojení.",
+          v4t: "Tvoje data zůstávají tvoje", v4p: "Postup se ukládá v tvém zařízení. Každá hra má srozumitelné zásady ochrany soukromí.",
+          aboutTitle: "O mně", aboutText: "Jsem Foro, nezávislý vývojář her. Mám rád hry, které se snadno začínají, hezky vypadají a těžko se odkládají. Hlášení chyb, nápady i pochvaly jsou vítané.",
+          contactTitle: "Kontakt", contactText: "Otázky, chyby, nebo jen pozdrav? Napiš mi:",
+          privFor: "Zásady ochrany soukromí:", trademark: "Google Play je ochranná známka společnosti Google LLC."
+        }
+      };
+      var DEFAULTS = {};
+      var nodes = document.querySelectorAll("[data-i18n]");
+      nodes.forEach(function (n) { DEFAULTS[n.getAttribute("data-i18n") + "|" + indexOf(n)] = n.textContent; });
+      function indexOf(n) { return Array.prototype.indexOf.call(nodes, n); }
+
+      function apply(lang) {
+        document.documentElement.lang = lang;
+        nodes.forEach(function (n) {
+          var key = n.getAttribute("data-i18n");
+          var text = lang === "cs" && STR.cs[key] ? STR.cs[key] : DEFAULTS[key + "|" + indexOf(n)];
+          n.textContent = text;
+        });
+        document.querySelectorAll(".lang button").forEach(function (b) {
+          b.setAttribute("aria-pressed", String(b.getAttribute("data-lang") === lang));
+        });
+        document.title = lang === "cs" ? "Foro - Mobilní hry pro Android" : "Foro - Mobile games for Android";
+      }
+
+      var saved = null;
+      try { saved = localStorage.getItem("foro_lang"); } catch (e) {}
+      var q = (location.search.match(/[?&]lang=(en|cs)/) || [])[1];
+      var initial = q || saved || ((navigator.language || "").toLowerCase().indexOf("cs") === 0 ? "cs" : "en");
+      if (initial === "cs") apply("cs");
+
+      document.querySelectorAll(".lang button").forEach(function (b) {
+        b.addEventListener("click", function () {
+          var l = b.getAttribute("data-lang");
+          apply(l);
+          try { localStorage.setItem("foro_lang", l); } catch (e) {}
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
