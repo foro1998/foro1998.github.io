@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Foro - Mobile games for Android</title>
-  <meta name="description" content="Colourful free mobile games for Android: Tapvolution (idle evolution clicker), Bugvalanche (tower defense) and Tiltstone (tilt-to-roll arcade) and Mobmelt (survivor action). Ads are always optional.">
+  <meta name="description" content="Colourful free mobile games for Android: Tapvolution (idle evolution clicker), Bugvalanche (tower defense), Tiltstone (tilt-to-roll arcade), Mobmelt (survivor action) and Worldroot (idle tree clicker). Ads are always optional.">
   <link rel="canonical" href="https://foro1998.github.io/">
   <meta name="theme-color" content="#120a26">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Foro">
   <meta property="og:title" content="Foro - Mobile games for Android">
-  <meta property="og:description" content="Tapvolution, Bugvalanche, Tiltstone and Mobmelt: colourful free Android games. Ads are always optional.">
+  <meta property="og:description" content="Tapvolution, Bugvalanche, Tiltstone, Mobmelt and Worldroot: colourful free Android games. Ads are always optional.">
   <meta property="og:url" content="https://foro1998.github.io/">
   <meta property="og:image" content="https://foro1998.github.io/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -95,7 +95,8 @@
       filter: drop-shadow(0 6px 24px rgba(0, 0, 0, 0.35));
     }
     .hero p { margin: 0 auto; max-width: 40rem; color: var(--muted); font-size: clamp(1.02rem, 2.2vw, 1.22rem); }
-    .hero__icons { display: flex; justify-content: center; gap: 16px; margin-top: 34px; }
+    .hero__icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 34px; }
+    @media (max-width: 480px) { .hero__icons { gap: 12px; } .hero__icons img { width: 56px; } }
     .hero__icons img {
       width: clamp(64px, 12vw, 92px); height: auto; aspect-ratio: 1; border-radius: 24%;
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.12);
@@ -105,6 +106,7 @@
     .hero__icons a:nth-child(2) img { transform: translateY(-8px); }
     .hero__icons a:nth-child(3) img { transform: rotate(5deg); }
     .hero__icons a:nth-child(4) img { transform: translateY(-8px) rotate(-4deg); }
+    .hero__icons a:nth-child(5) img { transform: rotate(-5deg); }
     .hero__icons a:hover img { transform: translateY(-8px) scale(1.06); }
     .cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
@@ -130,8 +132,11 @@
       margin: 0 0 8px; text-align: center; font: 700 clamp(1.8rem, 4.4vw, 2.6rem)/1.15 var(--font-display);
     }
     .section-sub { text-align: center; color: var(--muted); margin: 0 auto 36px; max-width: 36rem; }
-    .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 26px; align-items: stretch; }
-    @media (max-width: 480px) { .games { grid-template-columns: 1fr; } }
+    .games { display: grid; grid-template-columns: 1fr; gap: 26px; align-items: stretch; }
+    @media (min-width: 940px) {
+      .games { grid-template-columns: repeat(2, 1fr); }
+      .game:last-child:nth-child(odd) { grid-column: 1 / -1; width: calc(50% - 13px); justify-self: center; }
+    }
     .game {
       position: relative; display: flex; flex-direction: column; overflow: hidden;
       background: var(--card); border: 1px solid var(--stroke); border-radius: var(--radius);
@@ -214,12 +219,13 @@
     <section class="hero">
       <div class="wrap">
         <h1>Colourful games for your phone</h1>
-        <p>Free Android games: idle clicking, tower defense, tilt-to-roll arcade and survivor action. Ads are always optional, only when you choose to watch one for a reward.</p>
+        <p>Free Android games: idle clicking, tower defense, tilt-to-roll arcade, survivor action and a tree that grows into a world. Ads are always optional, only when you choose to watch one for a reward.</p>
         <div class="hero__icons" aria-hidden="true">
           <a tabindex="-1" href="#tapvolution"><img src="/tapvolution-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#bugvalanche"><img src="/bugvalanche-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#tiltstone"><img src="/tiltstone-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#mobmelt"><img src="/mobmelt-icon.webp" alt="" width="92" height="92"></a>
+          <a tabindex="-1" href="#worldroot"><img src="/worldroot-icon.webp" alt="" width="92" height="92"></a>
         </div>
         <div class="cta">
           <a class="btn btn--gold" href="#games">See the games</a>
@@ -231,12 +237,12 @@
     <section id="games">
       <div class="wrap">
         <h2 class="section">Games</h2>
-        <p class="section-sub">Four games, four very different ways to play.</p>
+        <p class="section-sub">Five games, five different ways to play.</p>
 
         <div class="games">
           <!--
-            To publish a game on this page, change data-status="soon" to data-status="live" on its card.
-            That swaps the "Coming soon" badge/button for "Get it on Google Play" (the Play links are already filled in).
+            Generated by scripts/promoVideo/siteBuild.cjs (edit the GAMES table there and re-run).
+            To publish a game by hand, change data-status="soon" to data-status="live" on its card.
           -->
 
           <!-- Tapvolution -->
@@ -287,6 +293,7 @@
                 <li>50 levels across 9 regions</li>
                 <li>8 weapons and 120+ upgrades</li>
                 <li>Endless Swarm, daily challenge, bosses</li>
+                <li>Available in 8 languages</li>
               </ul>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.bugvalanche.game">
@@ -317,6 +324,7 @@
                 <li>60 levels in 12 worlds</li>
                 <li>Endless path and a new daily path</li>
                 <li>14 stones to collect, each rolls a little differently</li>
+                <li>Available in 8 languages</li>
               </ul>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.tiltstone.game">
@@ -344,12 +352,44 @@
               <ul class="tags"><li>Survivor</li><li>Action</li><li>Portrait &amp; landscape</li></ul>
               <p class="desc">Survive an endless goo invasion. Enemies swarm from every side while you level up, evolve your weapons, rescue survivors and take on giant bosses.</p>
               <ul class="facts">
-                <li>4 heroes, each with a signature weapon</li>
+                <li>6 heroes, each with a signature weapon</li>
                 <li>4 worlds, a different one every run</li>
-                <li>Giant bosses and weapon evolutions</li>
+                <li>18 weapons that evolve, plus giant bosses</li>
+                <li>Available in 8 languages</li>
               </ul>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.mobmelt.game">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
+                  <span>Get it on Google Play</span>
+                </a>
+                <span class="btn btn--soon" aria-disabled="true">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/mobmelt-privacy/">Privacy policy</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Worldroot -->
+          <article class="game" id="worldroot" data-status="soon">
+            <div class="game__art">
+              <img class="game__img" src="/worldroot-card.webp" alt="Worldroot: a seedling, a young tree and a glowing cosmic tree" width="1024" height="500" loading="lazy">
+              <img class="game__icon" src="/worldroot-icon.webp" alt="Worldroot icon" width="78" height="78">
+            </div>
+            <div class="game__body">
+              <div class="game__head">
+                <h3>Worldroot</h3>
+                <span class="badge badge--live">Out now</span>
+                <span class="badge badge--soon">Coming soon</span>
+              </div>
+              <ul class="tags"><li>Idle clicker</li><li>Nature</li><li>Relaxing</li></ul>
+              <p class="desc">Grow a World Tree from a single seed to cosmic scale. Hire tenders who gather Sap for you, watch your tree rise through eight epochs, then start a new world.</p>
+              <ul class="facts">
+                <li>8 epochs, from the soil to the cosmos</li>
+                <li>24 tenders and 18 talents</li>
+                <li>6 biomes to restart in, 81 achievements</li>
+                <li>Available in 8 languages</li>
+              </ul>
+              <div class="game__actions">
+                <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.worldroot.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
                   <span>Get it on Google Play</span>
                 </a>
@@ -383,6 +423,7 @@
           <li><a href="https://foro1998.github.io/tapvolution-privacy/"><span>Privacy policy:</span> Tapvolution</a></li>
           <li><a href="https://foro1998.github.io/bugvalanche-privacy/"><span>Privacy policy:</span> Bugvalanche</a></li>
           <li><a href="https://foro1998.github.io/tiltstone-privacy/"><span>Privacy policy:</span> Tiltstone</a></li>
+          <li><a href="https://foro1998.github.io/mobmelt-privacy/"><span>Privacy policy:</span> Mobmelt</a></li>
         </ul>
       </div>
     </section>
