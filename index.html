@@ -168,6 +168,9 @@
     .facts { margin: 0; padding: 0; list-style: none; display: grid; gap: 5px; color: var(--muted); font-size: 0.93rem; }
     .facts li { display: flex; gap: 9px; align-items: baseline; }
     .facts li::before { content: "\2726"; color: var(--gold); font-size: 0.8em; }
+    /* screenshot strip on each card */
+    .shots { display: flex; gap: 10px; overflow-x: auto; scroll-snap-type: x proximity; margin: 4px -4px 0; padding: 4px 4px 10px; -webkit-overflow-scrolling: touch; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.25) transparent; }
+    .shots img { flex: 0 0 auto; height: 250px; width: auto; aspect-ratio: 9 / 16; border-radius: 14px; border: 1px solid var(--stroke); background: #1b1030; box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35); scroll-snap-align: start; }
     .game__actions { margin-top: auto; padding-top: 10px; display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
     .game__actions .btn--gold, .game__actions .btn--soon { width: 100%; }
     .game__actions .btn--ghost {
@@ -264,6 +267,12 @@
                 <li>110 achievements and a branching prestige tree</li>
                 <li>Available in 5 languages</li>
               </ul>
+              <div class="shots" aria-label="Tapvolution screenshots">
+                <img src="/tapvolution-shot-1.webp" alt="Tapvolution screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tapvolution-shot-2.webp" alt="Tapvolution screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tapvolution-shot-3.webp" alt="Tapvolution screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tapvolution-shot-4.webp" alt="Tapvolution screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.tapvolution.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
@@ -288,13 +297,19 @@
                 <span class="badge badge--soon">Coming soon</span>
               </div>
               <ul class="tags"><li>Tower defense</li><li>Strategy</li><li>Plays offline</li></ul>
-              <p class="desc">Hold the wall against an avalanche of thousands of bugs. Place your weapons anywhere, aim them yourself, call in the mothership and upgrade after every fight.</p>
+              <p class="desc">Hold the wall against an avalanche of thousands of bugs. Drag your weapons anywhere, aim them yourself, call in the mothership and upgrade after every fight.</p>
               <ul class="facts">
                 <li>50 levels across 9 regions</li>
                 <li>8 weapons and 120+ upgrades</li>
-                <li>Endless Swarm, daily challenge, bosses</li>
+                <li>Endless Swarm, daily challenge and hive queens</li>
                 <li>Available in 8 languages</li>
               </ul>
+              <div class="shots" aria-label="Bugvalanche screenshots">
+                <img src="/bugvalanche-shot-1.webp" alt="Bugvalanche screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/bugvalanche-shot-2.webp" alt="Bugvalanche screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/bugvalanche-shot-3.webp" alt="Bugvalanche screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/bugvalanche-shot-4.webp" alt="Bugvalanche screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.bugvalanche.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
@@ -326,6 +341,12 @@
                 <li>14 stones to collect, each rolls a little differently</li>
                 <li>Available in 8 languages</li>
               </ul>
+              <div class="shots" aria-label="Tiltstone screenshots">
+                <img src="/tiltstone-shot-1.webp" alt="Tiltstone screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tiltstone-shot-2.webp" alt="Tiltstone screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tiltstone-shot-3.webp" alt="Tiltstone screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/tiltstone-shot-4.webp" alt="Tiltstone screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.tiltstone.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
@@ -340,7 +361,7 @@
           <!-- Mobmelt -->
           <article class="game" id="mobmelt" data-status="soon">
             <div class="game__art">
-              <img class="game__img" src="/mobmelt-card.webp" alt="Mobmelt: a space colony on a red planet under a ringed giant planet" width="1024" height="500" loading="lazy">
+              <img class="game__img" src="/mobmelt-card.webp" alt="Mobmelt: a robot hero surrounded by a ring of fire amid a horde of alien goo monsters" width="1024" height="500" loading="lazy">
               <img class="game__icon" src="/mobmelt-icon.webp" alt="Mobmelt icon" width="78" height="78">
             </div>
             <div class="game__body">
@@ -350,13 +371,19 @@
                 <span class="badge badge--soon">Coming soon</span>
               </div>
               <ul class="tags"><li>Survivor</li><li>Action</li><li>Portrait &amp; landscape</li></ul>
-              <p class="desc">Survive an endless goo invasion. Enemies swarm from every side while you level up, evolve your weapons, rescue survivors and take on giant bosses.</p>
+              <p class="desc">The goo has landed. Steer with one thumb while your weapons fire on their own, evolve them mid-run and survive an ever-growing alien horde.</p>
               <ul class="facts">
-                <li>6 heroes, each with a signature weapon</li>
-                <li>4 worlds, a different one every run</li>
-                <li>18 weapons that evolve, plus giant bosses</li>
-                <li>Available in 8 languages</li>
+                <li>6 heroes, each with a signature weapon and a super power</li>
+                <li>18 weapons that evolve into stronger forms</li>
+                <li>32 kinds of aliens, including 4 huge bosses</li>
+                <li>4 worlds, plays upright or sideways</li>
               </ul>
+              <div class="shots" aria-label="Mobmelt screenshots">
+                <img src="/mobmelt-shot-1.webp" alt="Mobmelt screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/mobmelt-shot-2.webp" alt="Mobmelt screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/mobmelt-shot-3.webp" alt="Mobmelt screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/mobmelt-shot-4.webp" alt="Mobmelt screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.mobmelt.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
@@ -371,7 +398,7 @@
           <!-- Worldroot -->
           <article class="game" id="worldroot" data-status="soon">
             <div class="game__art">
-              <img class="game__img" src="/worldroot-card.webp" alt="Worldroot: a seedling, a young tree and a glowing cosmic tree" width="1024" height="500" loading="lazy">
+              <img class="game__img" src="/worldroot-card.webp" alt="Worldroot: a huge tree with a castle in its crown above a village at sunset" width="1024" height="500" loading="lazy">
               <img class="game__icon" src="/worldroot-icon.webp" alt="Worldroot icon" width="78" height="78">
             </div>
             <div class="game__body">
@@ -380,20 +407,27 @@
                 <span class="badge badge--live">Out now</span>
                 <span class="badge badge--soon">Coming soon</span>
               </div>
-              <ul class="tags"><li>Idle clicker</li><li>Nature</li><li>Relaxing</li></ul>
-              <p class="desc">Grow a World Tree from a single seed to cosmic scale. Hire tenders who gather Sap for you, watch your tree rise through eight epochs, then start a new world.</p>
+              <ul class="tags"><li>Idle clicker</li><li>Tree growing</li><li>Plays offline</li></ul>
+              <p class="desc">Plant a tiny seed and grow it into a World Tree so vast that its crown reaches the stars. Hire helpers who gather sap for you, even while you're away.</p>
               <ul class="facts">
-                <li>8 epochs, from the soil to the cosmos</li>
-                <li>24 tenders and 18 talents</li>
-                <li>6 biomes to restart in, 81 achievements</li>
+                <li>24 helpers, from worms to whole galaxies</li>
+                <li>8 epochs and 40 stages</li>
+                <li>18 talents and 6 new worlds to start over in</li>
                 <li>Available in 8 languages</li>
               </ul>
+              <div class="shots" aria-label="Worldroot screenshots">
+                <img src="/worldroot-shot-1.webp" alt="Worldroot screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/worldroot-shot-2.webp" alt="Worldroot screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/worldroot-shot-3.webp" alt="Worldroot screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/worldroot-shot-4.webp" alt="Worldroot screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
               <div class="game__actions">
                 <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.worldroot.game">
                   <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
                   <span>Get it on Google Play</span>
                 </a>
                 <span class="btn btn--soon" aria-disabled="true">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/worldroot-privacy/">Privacy policy</a>
               </div>
             </div>
           </article>
@@ -424,6 +458,7 @@
           <li><a href="https://foro1998.github.io/bugvalanche-privacy/"><span>Privacy policy:</span> Bugvalanche</a></li>
           <li><a href="https://foro1998.github.io/tiltstone-privacy/"><span>Privacy policy:</span> Tiltstone</a></li>
           <li><a href="https://foro1998.github.io/mobmelt-privacy/"><span>Privacy policy:</span> Mobmelt</a></li>
+          <li><a href="https://foro1998.github.io/worldroot-privacy/"><span>Privacy policy:</span> Worldroot</a></li>
         </ul>
       </div>
     </section>
