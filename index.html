@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Foro - Mobile games for Android</title>
-  <meta name="description" content="Colourful free mobile games for Android: Tapvolution (idle evolution clicker), Bugvalanche (tower defense), Tiltstone (tilt-to-roll arcade), Mobmelt (survivor action) and Worldroot (idle tree clicker). Ads are always optional.">
+  <meta name="description" content="Colourful free mobile games for Android: Tapvolution (idle evolution clicker), Bugvalanche (tower defense), Tiltstone (tilt-to-roll arcade), Mobmelt (survivor action), Worldroot (idle tree clicker) and Aurvel (idle mining clicker). Ads are always optional.">
   <link rel="canonical" href="https://foro1998.github.io/">
   <meta name="theme-color" content="#120a26">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Foro">
   <meta property="og:title" content="Foro - Mobile games for Android">
-  <meta property="og:description" content="Tapvolution, Bugvalanche, Tiltstone, Mobmelt and Worldroot: colourful free Android games. Ads are always optional.">
+  <meta property="og:description" content="Tapvolution, Bugvalanche, Tiltstone, Mobmelt, Worldroot and Aurvel: colourful free Android games. Ads are always optional.">
   <meta property="og:url" content="https://foro1998.github.io/">
   <meta property="og:image" content="https://foro1998.github.io/og-image.jpg">
   <meta property="og:image:width" content="1200">
@@ -96,7 +96,7 @@
     }
     .hero p { margin: 0 auto; max-width: 40rem; color: var(--muted); font-size: clamp(1.02rem, 2.2vw, 1.22rem); }
     .hero__icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin-top: 34px; }
-    @media (max-width: 480px) { .hero__icons { gap: 12px; } .hero__icons img { width: 56px; } }
+    @media (max-width: 480px) { .hero__icons { gap: 10px; } .hero__icons img { width: 48px; } }
     .hero__icons img {
       width: clamp(64px, 12vw, 92px); height: auto; aspect-ratio: 1; border-radius: 24%;
       box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45), 0 0 0 2px rgba(255, 255, 255, 0.12);
@@ -107,6 +107,7 @@
     .hero__icons a:nth-child(3) img { transform: rotate(5deg); }
     .hero__icons a:nth-child(4) img { transform: translateY(-8px) rotate(-4deg); }
     .hero__icons a:nth-child(5) img { transform: rotate(-5deg); }
+    .hero__icons a:nth-child(6) img { transform: translateY(-6px) rotate(4deg); }
     .hero__icons a:hover img { transform: translateY(-8px) scale(1.06); }
     .cta { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 
@@ -222,13 +223,14 @@
     <section class="hero">
       <div class="wrap">
         <h1>Colourful games for your phone</h1>
-        <p>Free Android games: idle clicking, tower defense, tilt-to-roll arcade, survivor action and a tree that grows into a world. Ads are always optional, only when you choose to watch one for a reward.</p>
+        <p>Free Android games: idle clicking and mining, tower defense, tilt-to-roll arcade and survivor action. Ads are always optional, only when you choose to watch one for a reward.</p>
         <div class="hero__icons" aria-hidden="true">
           <a tabindex="-1" href="#tapvolution"><img src="/tapvolution-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#bugvalanche"><img src="/bugvalanche-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#tiltstone"><img src="/tiltstone-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#mobmelt"><img src="/mobmelt-icon.webp" alt="" width="92" height="92"></a>
           <a tabindex="-1" href="#worldroot"><img src="/worldroot-icon.webp" alt="" width="92" height="92"></a>
+          <a tabindex="-1" href="#aurvel"><img src="/aurvel-icon.webp" alt="" width="92" height="92"></a>
         </div>
         <div class="cta">
           <a class="btn btn--gold" href="#games">See the games</a>
@@ -240,7 +242,7 @@
     <section id="games">
       <div class="wrap">
         <h2 class="section">Games</h2>
-        <p class="section-sub">Five games, five different ways to play.</p>
+        <p class="section-sub">Six games, six different ways to play.</p>
 
         <div class="games">
           <!--
@@ -322,7 +324,7 @@
           </article>
 
           <!-- Tiltstone -->
-          <article class="game" id="tiltstone" data-status="soon">
+          <article class="game" id="tiltstone" data-status="live">
             <div class="game__art">
               <img class="game__img" src="/tiltstone-card.webp" alt="Tiltstone: a low-poly boulder glowing in front of bright rays" width="1024" height="500" loading="lazy">
               <img class="game__icon" src="/tiltstone-icon.webp" alt="Tiltstone icon" width="78" height="78">
@@ -431,6 +433,43 @@
               </div>
             </div>
           </article>
+
+          <!-- Aurvel -->
+          <article class="game" id="aurvel" data-status="soon">
+            <div class="game__art">
+              <img class="game__img" src="/aurvel-card.webp" alt="Aurvel: a mountain cut open to show a kingdom of lantern-lit rooms under a glowing crystal peak" width="1024" height="500" loading="lazy">
+              <img class="game__icon" src="/aurvel-icon.webp" alt="Aurvel icon" width="78" height="78">
+            </div>
+            <div class="game__body">
+              <div class="game__head">
+                <h3>Aurvel</h3>
+                <span class="badge badge--live">Out now</span>
+                <span class="badge badge--soon">Coming soon</span>
+              </div>
+              <ul class="tags"><li>Idle clicker</li><li>Mining</li><li>Plays offline</li></ul>
+              <p class="desc">Tap the glowing vein and dig one lantern-lit room into a kingdom inside the mountain. Hire helpers who dig for you, even while you're away.</p>
+              <ul class="facts">
+                <li>24 helpers, from miners to underground railways</li>
+                <li>8 epochs and 40 fully furnished rooms</li>
+                <li>18 upgrades and 6 new mountains to found</li>
+                <li>Available in 8 languages</li>
+              </ul>
+              <div class="shots" aria-label="Aurvel screenshots">
+                <img src="/aurvel-shot-1.webp" alt="Aurvel screenshot 1" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/aurvel-shot-2.webp" alt="Aurvel screenshot 2" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/aurvel-shot-3.webp" alt="Aurvel screenshot 3" width="360" height="640" loading="lazy" decoding="async">
+                <img src="/aurvel-shot-4.webp" alt="Aurvel screenshot 4" width="360" height="640" loading="lazy" decoding="async">
+              </div>
+              <div class="game__actions">
+                <a class="btn btn--gold btn--play" href="https://play.google.com/store/apps/details?id=com.aurvel.game">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3.2v17.6c0 .7.8 1.1 1.4.7l14-8.8c.6-.4.6-1.2 0-1.6L6.4 2.5C5.8 2.1 5 2.5 5 3.2z"/></svg>
+                  <span>Get it on Google Play</span>
+                </a>
+                <span class="btn btn--soon" aria-disabled="true">Coming soon on Google Play</span>
+                <a class="btn btn--ghost" href="https://foro1998.github.io/aurvel-privacy/">Privacy policy</a>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -459,6 +498,7 @@
           <li><a href="https://foro1998.github.io/tiltstone-privacy/"><span>Privacy policy:</span> Tiltstone</a></li>
           <li><a href="https://foro1998.github.io/mobmelt-privacy/"><span>Privacy policy:</span> Mobmelt</a></li>
           <li><a href="https://foro1998.github.io/worldroot-privacy/"><span>Privacy policy:</span> Worldroot</a></li>
+          <li><a href="https://foro1998.github.io/aurvel-privacy/"><span>Privacy policy:</span> Aurvel</a></li>
         </ul>
       </div>
     </section>
